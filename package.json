@@ -1,20 +1,7 @@
 {
   "name": "casaos-dashboard-app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tigerinus/CasaOS-Dashboard-App.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/tigerinus/CasaOS-Dashboard-App/issues"
-  },
-  "homepage": "https://github.com/tigerinus/CasaOS-Dashboard-App#readme"
+  "packageManager": "yarn@3.3.0",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
