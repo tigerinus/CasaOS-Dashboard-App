@@ -4,8 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "start": "nodemon index.ts"
+    "build": "tsc -p .",
+    "start": "nodemon index.ts",
+    "production": "yarn build && nodemon dist/index.js"
   },
   "dependencies": {
     "@types/express": "^4.17.14",
