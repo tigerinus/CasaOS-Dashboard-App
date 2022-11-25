@@ -18,6 +18,59 @@ import http from 'http'; // 导入http模块
 import { Server } from "socket.io"; // 导入socket.io模块
 import WebSocket from 'ws'; // 导入ws模块
 
+import { components } from '../codegen/message-bus';
+
+type Event = components['schemas']['Event'];
+type Property = components['schemas']['Property'];
+
+type Message = {
+    title: string;
+    icon: string;
+    message: string;
+    ui: string;
+}
+
+const fromProperties = (properties: Property[]): { [key: string]: string; } => {
+    const result: { [key: string]: string; } = {};
+    properties.forEach(property => {
+        let name = property['name'] ?? "";
+        let value = property['value'] ?? "";
+
+        if (name != "" && value != "") {
+            result[name] = value;
+        }
+    });
+    return result;
+}
+
+const getMessage = (event: Event): Message => {
+    const props = fromProperties(event.properties);
+    switch (event.name) {
+        case 'local-storage:disk:added':
+            return {
+                title: "A new disk is found!",
+                icon: "casaos-disk",
+                message: `Disk ${props["local-storage:vendor"]} ${props["local-storage:model"]} is added.`,
+                ui: "casaos-ui-notification-style-2"
+            };
+        case 'local-storage:disk:removed':
+            return {
+                title: "A disk is removed!",
+                icon: "casaos-disk",
+                message: `Disk ${props["local-storage:vendor"]} ${props["local-storage:model"]} is removed.`,
+                ui: "casaos-ui-notification-style-2"
+            };
+        default:
+            return {
+                title: 'Unknown',
+                icon: 'unknown',
+                message: 'Unknown',
+                ui: 'unknown'
+            };
+    }
+}
+
+
 dotenv.config();
 
 const wsURL = `ws://${process.env.CASAOS_HOST}:${process.env.CASAOS_PORT}/v2/message_bus/event/local-storage`;
@@ -27,9 +80,8 @@ const server = http.createServer(app); // 创建http服务
 const io = new Server(server); // 创建socket.io服务
 const ws = new WebSocket(wsURL); // 创建ws服务
 
-app.use(express.static('public')); // 静态资源托管
-
 // Host web ui
+app.use(express.static('public')); // 静态资源托管
 app.get('/', (req: Request, res: Response) => {
     res.sendFile(__dirname + '/public/index.html');
 });
@@ -54,9 +106,16 @@ ws.on('open', function open() {
 });
 
 ws.on('message', function incoming(data) {
-    let msg = data.toString();
-    console.log(msg);
-    io.emit('chat message', msg);
+
+    let event: Event = JSON.parse(data.toString());
+
+    console.log(event);
+
+    let msg = getMessage(event);
+
+    if (msg.ui != 'unknown') {
+        io.emit('chat message', JSON.stringify(msg));
+    }
 });
 
 // 启动express服务

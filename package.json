@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -p .",
-    "start": "nodemon src/index.ts",
+    "codegen": "rm -rf codegen && npx openapi-typescript https://raw.githubusercontent.com/IceWhaleTech/CasaOS-MessageBus/81c9cece1fe36197d9a51b3c2592fc2d62823731/api/message_bus/openapi.yaml --output codegen/message-bus.d.ts",
+    "build": "yarn codegen && tsc -p .",
+    "start": "yarn codegen && nodemon src/index.ts",
     "production": "yarn build && nodemon dist/index.js"
   },
   "dependencies": {
