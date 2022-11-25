@@ -107,3 +107,6 @@ dist
 .yarn/
 .pnp.cjs
 yarn.lock
+
+public/
+
