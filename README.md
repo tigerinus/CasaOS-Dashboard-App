@@ -6,6 +6,25 @@
 yarn dlx @yarnpkg/sdks vscode
 ```
 
+`.vscode/launch.json`
+
+```json
+{
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/index.ts",
+            "runtimeExecutable": "yarn",
+            "runtimeArgs": [
+                "start"
+            ],
+        }
+    ]
+}
+```
+
 `.vscode/settings.json`
 
 ```json

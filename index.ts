@@ -23,18 +23,7 @@ app.use(express.static('public')); // 静态资源托管
 
 // Host web ui
 app.get('/', (req: Request, res: Response) => {
-
     res.sendFile(__dirname + '/public/index.html');
-});
-
-// 创建一个假的socket-port 接口 让前端可以运行
-app.get('/v1/sys/socket-port', (req: Request, res: Response) => {
-    res.json({ "success": 200, "message": "ok", "data": "40273" });
-});
-
-// Chat room
-app.get('/chat', (req, res) => {
-    res.sendFile(__dirname + '/public/chat.html');
 });
 
 // Socket.io 事件
