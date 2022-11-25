@@ -2,41 +2,43 @@
 
 ## Setup
 
-```shell
-yarn dlx @yarnpkg/sdks vscode
-```
+- Install yarn support for VSCode
 
-`.vscode/launch.json`
+  ```shell
+  yarn dlx @yarnpkg/sdks vscode
+  ```
 
-```json
-{
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/index.ts",
-            "runtimeExecutable": "yarn",
-            "runtimeArgs": [
-                "start"
-            ],
-        }
-    ]
-}
-```
+- Update `.vscode/launch.json` for debugging
 
-`.vscode/settings.json`
+  ```json
+  {
+      "configurations": [
+          {
+              "type": "node",
+              "request": "launch",
+              "name": "Launch Program",
+              "program": "${workspaceFolder}/index.ts",
+              "runtimeExecutable": "yarn",
+              "runtimeArgs": [
+                  "start"
+              ],
+          }
+      ]
+  }
+  ```
 
-```json
-{
-  "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
-  },
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
-}
-```
+- Update `.vscode/settings.json` for coding
+
+  ```json
+  {
+    "search.exclude": {
+      "**/.yarn": true,
+      "**/.pnp.*": true
+    },
+    "typescript.tsdk": ".yarn/sdks/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true
+  }
+  ```
 
 ## Install
 

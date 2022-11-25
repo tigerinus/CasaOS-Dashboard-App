@@ -1,11 +1,10 @@
 {
   "name": "casaos-dashboard-app",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
     "build": "tsc -p .",
-    "start": "nodemon index.ts",
+    "start": "nodemon src/index.ts",
     "production": "yarn build && nodemon dist/index.js"
   },
   "dependencies": {
