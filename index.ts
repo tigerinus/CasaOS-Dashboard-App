@@ -8,23 +8,27 @@
  * 
  * Copyright (c) 2022 by IceWhale, All Rights Reserved. 
  */
-const express = require('express'); // 导入express模块
+
+'use strict';
+
+import express, { Request, Response } from 'express'; // 导入express模块
 const app = express(); // 创建express实例
-const http = require('http'); // 导入http模块
+import http from 'http'; // 导入http模块
 const server = http.createServer(app); // 创建http服务
 
-const { Server } = require("socket.io"); // 导入socket.io模块
+import { Server } from "socket.io"; // 导入socket.io模块
 const io = new Server(server); // 创建socket.io服务
 
 app.use(express.static('public')); // 静态资源托管
 
 // Host web ui
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
+
     res.sendFile(__dirname + '/public/index.html');
 });
 
 // 创建一个假的socket-port 接口 让前端可以运行
-app.get('/v1/sys/socket-port', (req, res) => {
+app.get('/v1/sys/socket-port', (req: Request, res: Response) => {
     res.json({ "success": 200, "message": "ok", "data": "40273" });
 });
 

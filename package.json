@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "node index.js"
+    "start": "nodemon index.ts"
   },
   "dependencies": {
     "@types/express": "^4.17.14",
