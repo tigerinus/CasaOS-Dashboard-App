@@ -20,10 +20,12 @@ import WebSocket from 'ws'; // 导入ws模块
 
 dotenv.config();
 
+const wsURL = `ws://${process.env.CASAOS_HOST}:${process.env.CASAOS_PORT}/v2/message_bus/event/local-storage`;
+
 const app = express(); // 创建express实例
 const server = http.createServer(app); // 创建http服务
 const io = new Server(server); // 创建socket.io服务
-const ws = new WebSocket("wss://demo.piesocket.com/v3/channel_123?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV&notify_self"); // 创建ws服务
+const ws = new WebSocket(wsURL); // 创建ws服务
 
 app.use(express.static('public')); // 静态资源托管
 
@@ -48,13 +50,13 @@ io.on('connection', (socket) => {
 
 // WebSocket 事件
 ws.on('open', function open() {
-    console.log('connected');
-    ws.send('something');
+    console.log(`connected to ${wsURL}`);
 });
 
 ws.on('message', function incoming(data) {
-    console.log(data.toString());
-    io.emit('chat message', data);
+    let msg = data.toString();
+    console.log(msg);
+    io.emit('chat message', msg);
 });
 
 // 启动express服务
