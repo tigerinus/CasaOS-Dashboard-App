@@ -11,12 +11,16 @@
 
 'use strict';
 
-import express, { Request, Response } from 'express'; // 导入express模块
-const app = express(); // 创建express实例
-import http from 'http'; // 导入http模块
-const server = http.createServer(app); // 创建http服务
+import dotenv from 'dotenv';
 
+import express, { Request, Response } from 'express'; // 导入express模块
+import http from 'http'; // 导入http模块
 import { Server } from "socket.io"; // 导入socket.io模块
+
+dotenv.config();
+
+const app = express(); // 创建express实例
+const server = http.createServer(app); // 创建http服务
 const io = new Server(server); // 创建socket.io服务
 
 app.use(express.static('public')); // 静态资源托管
