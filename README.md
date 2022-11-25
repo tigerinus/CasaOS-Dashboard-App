@@ -42,12 +42,17 @@
 
 ## Install
 
-``` shell
-yarn
-```
+  ``` shell
+  yarn
+  ```
 
 ## Run Server
 
-``` shell
-yarn start
-```
+- Make sure CasaOS Message Bus is running
+- Make sure CasaOS LocalStorage is running
+- Update `.env` (based on `.env.sample`) with correct `CASAOS_HOST` and `CASAOS_PORT`
+- Run
+
+  ``` shell
+  yarn start
+  ```
